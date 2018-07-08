@@ -58,9 +58,13 @@ def main():
         # Se calcula el output a traves del feed forward
         actLayer = x
         for layer in hidden_layers:
+            # En caso de que sean hidden layers tomamos como referencia la capa anterior
+            # y aplicamos la funcion de activacion
             if layer["name"] != "output_layer":
                 li = tf.nn.relu_layer(actLayer, layer["weights"], layer["biases"])
                 actLayer = li
+            # En caso de que sea la capa oculta, solo hacemos la multiplicacion de los valores de la capa
+            # anterior por el peso mas su bias
             else:
                 output = tf.matmul(li, layer["weights"]) + layer["biases"]
 
