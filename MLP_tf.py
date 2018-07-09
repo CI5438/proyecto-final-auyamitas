@@ -24,8 +24,7 @@ def main():
     print("Defining tensorflow variables")
     # Se definen placeholders para las variables de datos en tensorflow
     x_ = tf.placeholder(tf.float32, [None, x.shape[1]])
-    y_ = tf.placeholder(tf.int8, [y.shape[0], 1])
-
+    y_ = tf.placeholder(tf.int8, [None, 1])
     print("Defining parameters")
     # Parametros del funcionamiento de la red
     LEARNING_RATE = 0.0005          # Tasa de aprendizaje
@@ -36,7 +35,7 @@ def main():
     # Por motivos de prueba, tendran la mitad de neuronas que input layer
     HIDDEN_LAYER_SIZE = int(N_INPUT/2)
     OUTPUT_LAYER_SIZE = 1           # Output layer tendra una sola neurona
-    N_CLASSES = 3                   # Los posibles valores que puede tomar la tendencia
+    N_CLASSES = 1                   # Los posibles valores que puede tomar la tendencia
     print("Learning rate:", LEARNING_RATE, "\nEpochs:",
           EPOCHS, "\nInput layer neurons:", N_INPUT, "\nHidden layers:",
           N_HIDDEN_LAYERS, "\nHidden layers size:", HIDDEN_LAYER_SIZE,
@@ -85,27 +84,58 @@ def main():
                 output = tf.nn.xw_plus_b(li, layer["weights"], layer["biases"])
 
         print("Output ready.")
+        print("Tensor DNN output:", output)
         print("DNN model built.")
         return output
 
-    # def train_neural_network(x, y):
-    #     prediction = DeepNeuralNetwork(N_HIDDEN_LAYERS)
-    #     cost = tf.reduce_mean(
-    #         tf.nn.softmax_cross_entropy_with_logits(prediction, y))
-    #     optimizer = tf.train.GradientDescentOptimizer(
-    #         LEARNING_RATE).minimize(cost)
+    def train_neural_network(x, y):
+        print("Starting training..")
 
-    #     with tf.Session() as sess:
-    #         sess.run(tf.initialize_all_variables())
+        x_tf = tf.convert_to_tensor(x, np.float32)
+        y = np.array([y], dtype=np.float32, ndmin=1)
+        y = np.transpose(y)
+        
+        print(y.shape)
+        
+        y_tf = tf.convert_to_tensor(np.transpose(y), np.float32)
+        
+        print("Tensor x", x_tf, "Tensor y", y_tf)
+        print("Getting the DNN model..")
+        
+        prediction = DeepNeuralNetwork(N_HIDDEN_LAYERS)
 
-    #         for epoch in range(EPOCHS):
-    #             epoch_loss = 0
-    #             for _ in range(x.shape[0]):
-    #                 _, c = sess.run([optimizer, cost], feed_dict={x: x, y: y})
-    #                 epoch_loss += c
-    #             print("Epoch", epoch, "completed out of", EPOCHS, "loss")
+        print("Preparing cost function and optimizer")
+        
+        # cost = tf.reduce_mean(
+            # tf.nn.softmax_cross_entropy_with_logits_v2(logits=prediction, labels=y_tf))
+        cost = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(
+            labels=tf.transpose(prediction), logits=y_tf)
+            )
+        optimizer = tf.train.GradientDescentOptimizer(
+            LEARNING_RATE).minimize(cost)
+        
+        print("Done.")
 
-    DNN = DeepNeuralNetwork(N_HIDDEN_LAYERS)
+        print("Starting tensorflow session..")
+        
+        with tf.Session() as sess:
+            print("Initializing variables..")
+            sess.run(tf.global_variables_initializer())
+
+            print("Running epochs..")
+            
+            for epoch in range(EPOCHS):
+                epoch_loss = 0
+                for _ in range(x.shape[0]):
+                    _, c = sess.run([optimizer, cost],
+                                    feed_dict={x_: x, y_: y})
+                    epoch_loss += c
+                
+                print("Epoch", epoch, "completed out of", EPOCHS, "loss")
+
+    train_neural_network(x, y)
+
+    # DNN = DeepNeuralNetwork(N_HIDDEN_LAYERS)
 
 
 if __name__ == '__main__':
