@@ -24,6 +24,8 @@ class DeepNeuralNetwork():
         x = data[:, :-1]
         y = data[:, -1]
 
+        print(x, y)
+        
         print("Retrieved data. Sliced features in a matrix with",
               x.shape[0], "rows and", x.shape[1], "columns")
         return x, y
@@ -82,7 +84,7 @@ class DeepNeuralNetwork():
     def trainDNN(self):
         # Se convierten los arrays en tensors y se transpone *y* por consistencia con
         # la prediccion pues es un arreglo plano y debe ser una matriz columna
-        x_tf = tf.convert_to_tensor(self.x, np.float32)
+        # x_tf = tf.convert_to_tensor(self.x, np.float32)
         self.y = np.array([self.y], dtype=np.float32, ndmin=1)
         self.y = np.transpose(self.y)
         y_tf = tf.convert_to_tensor(np.transpose(self.y), np.float32)
