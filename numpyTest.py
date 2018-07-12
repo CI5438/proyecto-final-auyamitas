@@ -4,12 +4,12 @@ from dataLib import *
 import matplotlib.pyplot as plt
 
 def main():
-	file = 'Mark1 Data/Consumer Cyclical Sector/Consumer Cyclical Sector.test.30.txt'
+	file = 'Mark1 Data/Technology Sector/Technology Sector.test.5.txt'
 	sectorName = file.split('/')[1]
 
 	df = readData(file, ';')
 
-	xNorm, x, y = prepareData(df, 60)
+	xNorm, x, y = prepareData(df, 10)
 
 	n_hidden_layers = 4
 	hidden_size = [180, 60, 20, 6]
