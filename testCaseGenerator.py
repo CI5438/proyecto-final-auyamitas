@@ -41,7 +41,7 @@ def getCases(sector, interval):
 
         for index, row in case.iterrows():
             testFile.write(
-                str(round(row[1], DAYS_AFTER))+";"+str(round(row[2], DAYS_AFTER))+";")
+                str(round(row[1], 3))+";"+str(round(row[2], 3))+";")
 
         testFile.write(str(trend)+"\n")
 
