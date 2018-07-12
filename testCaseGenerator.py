@@ -32,8 +32,6 @@ def getCases(sector, interval):
 
         if caseClosure < resultClosure:
             trend = 1
-        elif caseClosure > resultClosure:
-            trend = -1
         else:
             trend = 0
 

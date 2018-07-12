@@ -14,6 +14,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import tensorflow as tf
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import LSTM
 import json
 import sys
 
@@ -50,15 +53,14 @@ def accuracy(y, yAprox):
 
 # Funcion que devuelve errores cuando y es un vector
 def accuracyVector(y, yAprox):
-	error = y - yAprox.round()
 
 	falsePositive = 0
 	falseNegative = 0
-	for row in error:
-		if row[0] < 0:
+	for i in range(len(y)):
+		if y[i] < yAprox[i].round():
 			falsePositive += 1
 
-		if row[0] > 0:
+		if y[i] > yAprox[i].round():
 			falseNegative += 1
 
 	errorTotal = (falseNegative + falsePositive)*100/len(y)
@@ -83,14 +85,14 @@ class DeepNeuralNetwork(object):
         # Calculamos pesos iniciales
         self.w = []
 
-        w0 = np.random.randn(inputSize+1, hiddenSize)
+        w0 = np.random.randn(inputSize+1, hiddenSize[0])
         self.w.append(w0)
 
-        for i in range(depth-1):
-            wi = np.random.randn(hiddenSize+1, hiddenSize)
+        for i in range(1, depth):
+            wi = np.random.randn(hiddenSize[i-1]+1, hiddenSize[i])
             self.w.append(wi)
 
-        self.wf = np.random.randn(hiddenSize+1, outputSize)
+        self.wf = np.random.randn(hiddenSize[-1]+1, outputSize)
 
     # Funcion de Feed Forward, recibe matriz de x
     def feedForward(self, x):
@@ -160,8 +162,6 @@ class DeepNeuralNetwork(object):
             sys.stdout.write("\rProgress: "+str(percent)+"%")
 
         return errors
-
-
 
 # Objeto Red Neuronal con Tensor Flow
 class DeepNeuralNetworkTF(object):
@@ -314,3 +314,46 @@ class DeepNeuralNetworkTF(object):
 
         # with open(fileName) as f:
         #     self.layers = json.load(f)
+
+# Objeto Red Neuronal con Keras
+class KerasDeepNN(object):
+
+    def __init__(self, hiddenSize, dataSize, nFeatures, nDays):
+        self.dataSize = dataSize
+        self.nFeatures = nFeatures
+        self.nDays = nDays
+
+        self.model = Sequential()
+
+        #for size in hiddenSize:
+        #    self.model.add(LSTM(size, input_shape=(nDays, nFeatures)))
+        self.model.add(Dense(hiddenSize[0], input_dim=nFeatures*nDays, activation='relu'))
+
+        for size in hiddenSize[1:]:
+            self.model.add(Dense(8, activation='relu'))
+
+        self.model.add(Dense(1))
+        self.model.compile(loss='mean_squared_error', optimizer='adam')
+
+
+    def train(self, x, y, xTest, yTest, maxIters):
+
+        #x = x.reshape((x.shape[0], self.nDays, self.nFeatures))
+
+        #xTest = xTest.reshape((xTest.shape[0], self.nDays, self.nFeatures))
+
+
+        history = self.model.fit(x, y, epochs=maxIters, batch_size=x.shape[0],
+                                 validation_data=(xTest, yTest), verbose=2, shuffle=False)
+
+        return history
+
+
+    def predict(self, x):
+
+        #x = x.reshape(x.shape[0], self.nDays, self.nFeatures)
+
+        return self.model.predict(x)
+
+
+
