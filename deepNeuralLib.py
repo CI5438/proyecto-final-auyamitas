@@ -226,7 +226,7 @@ class DeepNeuralNetworkTF(object):
             # En caso de que sean hidden layers tomamos como referencia la capa anterior
             # y aplicamos la funcion de activacion
             if layer["name"] != "output_layer":
-                li = tf.nn.relu_layer(
+                li = tf.nn.sigmoid_layer(
                     actLayer, layer["weights"], layer["biases"])
                 actLayer = li
             # En caso de que sea la capa oculta, solo hacemos la multiplicacion de los valores de la capa
@@ -318,6 +318,22 @@ class DeepNeuralNetworkTF(object):
 # Objeto Red Neuronal con Keras
 class KerasDeepNN(object):
 
+    # def __init__(self, hiddenSize, dataSize, nFeatures, nDays):
+    #     self.dataSize = dataSize
+    #     self.nFeatures = nFeatures
+    #     self.nDays = nDays
+
+    #     self.model = Sequential()
+
+
+    #     self.model.add(Dense(hiddenSize[0], input_dim=nFeatures*nDays, activation='relu'))
+
+    #     for size in hiddenSize[1:]:
+    #         self.model.add(Dense(size, activation='relu'))
+
+    #     self.model.add(Dense(1, activation='sigmoid'))
+    #     self.model.compile(loss='binary_crossentropy', metrics=['accuracy'], optimizer='adam')
+
     def __init__(self, hiddenSize, dataSize, nFeatures, nDays):
         self.dataSize = dataSize
         self.nFeatures = nFeatures
@@ -326,21 +342,17 @@ class KerasDeepNN(object):
         self.model = Sequential()
 
         #for size in hiddenSize:
-        #    self.model.add(LSTM(size, input_shape=(nDays, nFeatures)))
-        self.model.add(Dense(hiddenSize[0], input_dim=nFeatures*nDays, activation='relu'))
-
-        for size in hiddenSize[1:]:
-            self.model.add(Dense(size, activation='relu'))
+        self.model.add(LSTM(hiddenSize[0], input_shape=(nDays, nFeatures)))
 
         self.model.add(Dense(1))
-        self.model.compile(loss='binary_crossentropy', metrics=['accuracy'], optimizer='adam')
+        self.model.compile(loss='mae', optimizer='adam')
 
 
     def train(self, x, y, xTest, yTest, maxIters):
 
-        #x = x.reshape((x.shape[0], self.nDays, self.nFeatures))
+        x = x.reshape((x.shape[0], self.nDays, self.nFeatures))
 
-        #xTest = xTest.reshape((xTest.shape[0], self.nDays, self.nFeatures))
+        xTest = xTest.reshape((xTest.shape[0], self.nDays, self.nFeatures))
 
 
         history = self.model.fit(x, y, epochs=maxIters, batch_size=x.shape[0],
@@ -351,7 +363,7 @@ class KerasDeepNN(object):
 
     def predict(self, x):
 
-        #x = x.reshape(x.shape[0], self.nDays, self.nFeatures)
+        x = x.reshape(x.shape[0], self.nDays, self.nFeatures)
 
         return self.model.predict(x)
 
