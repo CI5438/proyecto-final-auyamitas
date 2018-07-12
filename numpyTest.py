@@ -4,23 +4,23 @@ from dataLib import *
 import matplotlib.pyplot as plt
 
 def main():
-	file = 'Mark1 Data/Technology Sector/Technology Sector.test.5.txt'
+	file = 'Mark1 Data/Technology Sector/Technology Sector.priceTest.30.txt'
 	sectorName = file.split('/')[1]
 
 	df = readData(file, ';')
 
-	xNorm, x, y = prepareData(df, 10)
+	xNorm, x, y = prepareData(df, 60)
 
-	n_hidden_layers = 4
-	hidden_size = [180, 60, 20, 6]
+	n_hidden_layers = 1
+	hidden_size = [180]
 	out_classes = 1
 
 	learning_rate = 0.01
-	epochs = 1000
+	epochs = 10000
 
 	deepNN = DeepNeuralNetwork(x.shape[1], hidden_size, out_classes, n_hidden_layers, 3)
 
-	error = deepNN.train(xNorm, y, learning_rate, epochs, 1)
+	error = deepNN.train(xNorm, y, learning_rate, epochs, 0)
 
 	yAprox = deepNN.feedForward(xNorm)
 

@@ -3,14 +3,16 @@ import sys
 import pandas as pd
 
 
-def getCases(sector, interval):
+def getCases(sector, interval, price, daysAfter):
 
-    DAYS_AFTER = 3
     # Ingresamos a la carpeta del sector
     os.chdir("Mark1 Data/"+sector)
 
     # Creamos el archivo de caso de prueba
-    testFile = open(sector+".test." + str(interval) + ".txt", "w")
+    if not price:
+        testFile = open(sector+".test." + str(interval) + ".txt", "w")
+    else:   
+        testFile = open(sector+".priceTest." + str(interval) + ".txt", "w")
 
     indexName = sector+" - Index.txt"
 
@@ -18,22 +20,26 @@ def getCases(sector, interval):
 
     dates = indexDataSet.index.values
 
-    for date in dates[:-(interval+DAYS_AFTER)]:
+    for date in dates[:-(interval+daysAfter)]:
 
         fromDateSet = indexDataSet.loc[date:]
 
         case = fromDateSet[:interval]
 
         # Calculamos la tendencia al tercer dia despues del caso de prueba
-        result = fromDateSet[:interval+DAYS_AFTER].tail(1)
+        result = fromDateSet[:interval+daysAfter].tail(1)
 
         caseClosure = float(case.tail(1)[2])
         resultClosure = float(result[2])
 
-        if caseClosure < resultClosure:
-            trend = 1
+        if not price:
+            if caseClosure < resultClosure:
+                trend = 1
+            else:
+                trend = 0
+
         else:
-            trend = 0
+            trend = resultClosure
 
         # Guardamos el caso de prueba
 
@@ -57,10 +63,22 @@ def main():
         interval = int(sys.argv[2])
     except:
         print("Ingrese el Intervalo del Caso de Prueba:")
-        interval = input()
-        interval = int(interval)
+        interval = int(input())
 
-    getCases(sector, interval)
+    try:
+        daysAfter = int(sys.argv[3])
+    except:
+        print("Ingrese cuantos dias despues quiere predecir:")
+        daysAfter = int(input())
+
+    try:
+        trend = int(sys.argv[4])
+    except:
+        print("Ingrese 1 si desea calcular la tendencia, 0 si desea el precio:")
+        trend = int(input())
+
+
+    getCases(sector, interval, trend, daysAfter)
 
 
 if __name__ == '__main__':

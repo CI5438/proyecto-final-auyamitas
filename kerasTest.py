@@ -4,26 +4,26 @@ from dataLib import *
 import matplotlib.pyplot as plt
 
 def main():
-	file = 'Mark1 Data/Technology Sector/Technology Sector.test.5.txt'
+	file = 'Mark1 Data/Technology Sector/Technology Sector.priceTest.30.txt'
 	sectorName = file.split('/')[1]
 
 	df = readData(file, ';')
 
-	xNorm, x, y = prepareData(df, 10)
+	xNorm, x, y = prepareData(df, 60)
 
 	xTrain = xNorm[:1985, 1:]
 	yTrain = y[:1985, :]
 	xTest = xNorm[1985:, 1:]
 	yTest = y[1985:, :]
 
-	n_hidden_layers = 1
-	hidden_size = [30, 30, 30, 30, 30]
+	n_hidden_layers = 2
+	hidden_size = [180, 120]
 	out_classes = 1
 
-	learning_rate = 0.005
-	epochs = 5000
+	learning_rate = 0.01
+	epochs = 20
 
-	deepNN = KerasDeepNN(hidden_size, xTrain.shape[0], 2, 5)
+	deepNN = KerasDeepNN(hidden_size, xTrain.shape[0], 2, 30)
 
 	error = deepNN.train(xTrain, yTrain, xTest, yTest, epochs)
 
