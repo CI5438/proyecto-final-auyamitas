@@ -19,21 +19,21 @@ def getData(file, normalize=False):
 
 
 def readData(file, sep):
+    print(type(file))
     dataSet = pd.read_csv(file, sep=sep, comment="#", header=None)
     return dataSet
 
 # Division de datos en x normalizado, x, y
 def prepareData(df, yColumn):
-	x = df.drop(df.columns[[yColumn]], axis=1)
-	x = x.values
-	lenx = len(x)
-	xNorm = x/np.amax(x, axis=0)
-
+    x = df.drop(df.columns[[yColumn]], axis=1)
+    x = x.values
+    lenx = len(x)
+    xNorm = x/np.amax(x, axis=0)
     xNorm = np.c_[np.ones(lenx), xNorm]
 
-	#xNorm = np.c_[np.ones(lenx), x]
+    #xNorm = np.c_[np.ones(lenx), x]
 
-	y = df[[yColumn]]
-	y = y.values
+    y = df[[yColumn]]
+    y = y.values
 
     return xNorm, x, y
