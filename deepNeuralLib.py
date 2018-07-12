@@ -335,10 +335,10 @@ class KerasDeepNN(object):
         self.model.add(Dense(hiddenSize[0], input_dim=nFeatures*nDays, activation='relu'))
 
         for size in hiddenSize[1:]:
-            self.model.add(Dense(8, activation='relu'))
+            self.model.add(Dense(size, activation='relu'))
 
         self.model.add(Dense(1))
-        self.model.compile(loss='mean_squared_error', optimizer='adam')
+        self.model.compile(loss='binary_crossentropy', metrics=['accuracy'], optimizer='adam')
 
 
     def train(self, x, y, xTest, yTest, maxIters):
