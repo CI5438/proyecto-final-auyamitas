@@ -17,15 +17,17 @@ def readData(file, sep):
     return dataSet
 
 # Division de datos en x normalizado, x, y
-def prepareData(df):
-	x = df.drop(df.columns[[2]], axis=1)
+def prepareData(df, yColumn):
+	x = df.drop(df.columns[[yColumn]], axis=1)
 	x = x.values
 	lenx = len(x)
 	xNorm = x/np.amax(x, axis=0)
 
 	xNorm = np.c_[np.ones(lenx), xNorm]
 
-	y = df[[2]]
+	#xNorm = np.c_[np.ones(lenx), x]
+
+	y = df[[yColumn]]
 	y = y.values
 
 	return xNorm, x, y
