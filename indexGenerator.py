@@ -36,8 +36,8 @@ def getIndex(sector, addPrices):
         closePrice = 0
 
         if addPrices:
-            lowerPrice = 0
             maxPrice = 0
+            lowerPrice = 0
 
         numSets = 0
         for dataSet in sets:
@@ -52,23 +52,23 @@ def getIndex(sector, addPrices):
             openPrice += row[1]
             closePrice += row[4]
             if addPrices:
-                lowerPrice += row[2]
-                maxPrice += row[3]
+                maxPrice += row[2]
+                lowerPrice += row[3]
 
         # Promediamos
         openPrice = round(openPrice / numSets, 3)
         closePrice = round(closePrice / numSets, 3)
 
         if addPrices:
-            lowerPrice = round(lowerPrice / numSets, 3)
             maxPrice = round(maxPrice / numSets, 3)
+            lowerPrice = round(lowerPrice / numSets, 3)
 
         # Escribimos en el archivo
         if not addPrices:
             fIndex.write(str(date)+";"+str(openPrice)+";"+str(closePrice)+"\n")
         else:
             fIndex.write(str(date)+";"+str(openPrice)+";" +
-                         str(closePrice)+";"+str(lowerPrice)+";"+str(maxPrice)+"\n")
+                         str(closePrice)+";"+str(maxPrice)+";"+str(lowerPrice)+"\n")
 
     fIndex.close()
 
@@ -81,12 +81,18 @@ def main():
         sector = input()
 
     try:
-        print("Ingrese 1 si desea incluir en el indice el precio mas alto y el mas bajo diario, de lo contrario ingrese 0:")
-        addMaxMinPrices = int(input())
+        addMaxMinPrices = int(sys.argv[2])
         assert(addMaxMinPrices == 1 or addMaxMinPrices == 0)
+
     except:
-        print("Error, ha ingresado un valor incorrecto.")
-        sys.exit()
+
+        try:
+            print("Ingrese 1 si desea incluir en el indice el precio mas alto y el mas bajo diario, de lo contrario ingrese 0:")
+            addMaxMinPrices = int(input())
+            assert(addMaxMinPrices == 1 or addMaxMinPrices == 0)
+        except:
+            print("Error, ha ingresado un valor incorrecto.")
+            sys.exit()
 
     getIndex(sector, addMaxMinPrices)
 
