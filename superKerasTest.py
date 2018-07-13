@@ -1,12 +1,12 @@
 import numpy as np 
 import pandas as pd 
 
-from subprocess import check_output
+# from subprocess import check_output
 from keras.layers import Dense, Activation, Dropout
 from keras.layers import LSTM
 from keras.models import Sequential
-from sklearn.cross_validation import  train_test_split
-import time 
+# from sklearn.cross_validation import  train_test_split
+# import time 
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 from numpy import newaxis
@@ -29,7 +29,7 @@ def createDataSet(df, lookBack=30):
 def main():
 
 	# Obtenemos la y real
-	testCase = 'Mark1 Data/Technology Sector/Technology Sector.test.30.txt'
+	testCase = 'Mark1 Data/Communication Services Sector/Communication Services Sector.test.30.txt'
 	df = readData(testCase, ';')
 	y = df[df.columns[-1]]
 
@@ -39,7 +39,7 @@ def main():
 	y2 = y[trainSize:]
 
 	# Preparamos el archivo del indice
-	file = 'Mark1 Data/Technology Sector/Technology Sector - Index.txt'
+	file = 'Mark1 Data/Communication Services Sector/Communication Services Sector - Index.txt'
 	sectorName = file.split('/')[1]
 	df = readData(file, ';')
 
@@ -108,6 +108,9 @@ def main():
 	f = open("test.txt", "w")
 
 	for i in yAproxTrain:
+		f.write(str(i)+"\n")
+
+	for i in yAproxTest:
 		f.write(str(i)+"\n")
 
 	f.close()
