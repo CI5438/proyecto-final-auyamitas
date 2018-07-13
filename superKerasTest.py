@@ -29,7 +29,7 @@ def createDataSet(df, lookBack=30):
 def main():
 
 	# Obtenemos la y real
-	testCase = 'Mark1 Data/Communication Services Sector/Communication Services Sector.test.20.txt'
+	testCase = 'Mark1 Data/Communication Services Sector/Communication Services Sector.test.18.txt'
 	df = readData(testCase, ';')
 	y = df[df.columns[-1]]
 
@@ -46,7 +46,7 @@ def main():
 	scaler = MinMaxScaler(feature_range=(0, 1))    # mejor manera?
 	df = scaler.fit_transform(df)
 
-	lookBack = 20
+	lookBack = 18
 	x, y = createDataSet(df, lookBack)
 	#xTest, yTest = createDataSet(test, lookBack)
 
@@ -55,13 +55,13 @@ def main():
 	yTrain = y[:trainSize]
 	yTest = y[trainSize:]
 
-	xTrain = np.reshape(xTrain, (xTrain.shape[0], 3, xTrain.shape[1]))
-	xTest = np.reshape(xTest, (xTest.shape[0], 3, xTest.shape[1]))
+	xTrain = np.reshape(xTrain, (xTrain.shape[0], 4, xTrain.shape[1]))
+	xTest = np.reshape(xTest, (xTest.shape[0], 4, xTest.shape[1]))
 
 	# Creamos el modelo
 	model = Sequential()
 
-	model.add(LSTM(50, input_shape=(3,20), return_sequences=True))
+	model.add(LSTM(50, input_shape=(4,18), return_sequences=True))
 	model.add(Dropout(0.5))
 
 	model.add(LSTM(200, return_sequences=True))
