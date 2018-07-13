@@ -1,18 +1,25 @@
 import numpy as np
 import pandas as pd
 
-def getData(file):
+
+def getData(file, normalize=False):
     print("Getting data from", file)
     data = np.loadtxt(file, delimiter=";")
     x = data[:, :-1]
     y = data[:, -1]
+
+    if normalize:
+        x = x/np.amax(x, axis=0)
 
     print("Retrieved data. Sliced features in a matrix with",
           x.shape[0], "rows and", x.shape[1], "columns")
     return x, y
 
 # Lectura de datos CSV
+
+
 def readData(file, sep):
+    print(type(file))
     dataSet = pd.read_csv(file, sep=sep, comment="#", header=None)
     return dataSet
 

@@ -166,16 +166,6 @@ class DeepNeuralNetwork(object):
 # Objeto Red Neuronal con Tensor Flow
 class DeepNeuralNetworkTF(object):
     def __init__(self, x, y, n_hidden, hidden_size, out_classes):
-        
-        #self.file = file
-        #self.x, self.y = self.getData(self.file)
-
-        # self.LEARNING_RATE = 0.001
-        # self.EPOCHS = 10
-
-        # self.N_HIDDEN_LAYERS = 2
-        # self.HIDDEN_LAYER_SIZE = 15
-        # self.N_OUTPUT_CLASSES = 1
 
         self.x = x
         self.y = y
@@ -248,7 +238,7 @@ class DeepNeuralNetworkTF(object):
             with tf.Session() as sess:
                 sess.run(tf.global_variables_initializer())
                 return output.eval()
-
+        
         return output
 
     def train(self, alpha, epochs):
@@ -257,13 +247,18 @@ class DeepNeuralNetworkTF(object):
         x_tf = tf.convert_to_tensor(self.x, np.float32)
         self.y = np.array([self.y], dtype=np.float32, ndmin=1)
         self.y = np.transpose(self.y)
-        y_tf = tf.convert_to_tensor(np.transpose(self.y), np.float32)
+        # y_tf = tf.convert_to_tensor(np.transpose(self.y), np.float32)
+        y_tf = tf.convert_to_tensor(self.y, np.float32)
 
         # Se inicializan las variables del modelo
         self.setModel()
 
         # Se obtiene la prediccion
         prediction = self.feedForward(self.x, False)
+
+        with tf.Session() as sess:
+            sess.run(tf.global_variables_initializer())
+            print(prediction.eval(), y_tf.eval())
 
         # Aca decidir entre usar como funcion de activacion cross entropy (hace backprop) a menos que
         # se indique lo contrario) o sigmoid
@@ -272,7 +267,7 @@ class DeepNeuralNetworkTF(object):
         #   tf.nn.softmax_cross_entropy_with_logits_v2(logits=prediction,labels=y_tf)
         # )
         cost = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(
-            logits=tf.transpose(prediction), labels=y_tf)
+            logits=prediction, labels=y_tf)
         )
         optimizer = tf.train.GradientDescentOptimizer(
             alpha).minimize(cost)
@@ -295,12 +290,12 @@ class DeepNeuralNetworkTF(object):
                 print("Epoch", epoch, "completed out of",
                       epochs, "loss:", epoch_loss)
 
-        # Se muestra la precision del modelo
-        correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(self.y, 1))
-        accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
+            # Se muestra la precision del modelo
+            correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(self.y, 1))
+            accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
 
-        # Aqui interesa
-        # print("Accuracy:", accuracy.eval(x_: matriz de prueba, y_: vector clase de prueba))
+            # Aqui interesa
+            print("Accuracy:", accuracy.eval( feed_dict={self.x_: self.x, self.y_: self.y}))
 
     def exportLayers(self, sectorName):
 

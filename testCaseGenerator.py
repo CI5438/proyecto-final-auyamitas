@@ -3,7 +3,7 @@ import sys
 import pandas as pd
 
 
-def getCases(sector, interval, price, daysAfter):
+def getCases(sector, interval, price, daysAfter, maxMinPrices):
 
     # Ingresamos a la carpeta del sector
     os.chdir("Mark1 Data/"+sector)
@@ -11,7 +11,7 @@ def getCases(sector, interval, price, daysAfter):
     # Creamos el archivo de caso de prueba
     if not price:
         testFile = open(sector+".test." + str(interval) + ".txt", "w")
-    else:   
+    else:
         testFile = open(sector+".priceTest." + str(interval) + ".txt", "w")
 
     indexName = sector+" - Index.txt"
@@ -31,6 +31,7 @@ def getCases(sector, interval, price, daysAfter):
 
         caseClosure = float(case.tail(1)[2])
         resultClosure = float(result[2])
+        # print(caseClosure, resultClosure)
 
         if not price:
             if caseClosure < resultClosure:
@@ -60,8 +61,17 @@ def getCases(sector, interval, price, daysAfter):
         #     testFile.write(
         #         str(round(row[1] - row[2], 3))+";")
 
-        for index, row in case.iterrows():
-            testFile.write(str(round(row[1], 3))+";"+str(round(row[2], 3))+";")
+        if maxMinPrices:
+            for index, row in case.iterrows():
+                testFile.write(
+                    str(round(row[1], 3))+";"+str(round(row[2], 3))+";" +
+                    str(round(row[3], 3))+";"+str(round(row[4], 3))+";"
+                )
+        else:
+            for index, row in case.iterrows():
+                testFile.write(
+                    str(round(row[1], 3))+";"+str(round(row[2], 3))+";"
+                )
 
         testFile.write(str(trend)+"\n")
 
@@ -93,8 +103,13 @@ def main():
         print("Ingrese 1 si desea calcular el precio, 0 si desea la tendencia:")
         price = int(input())
 
+    try:
+        maxMinPrices = int(sys.argv[5])
+    except:
+        print("Ingrese 1 si desea incluir el precio maximo y minimo, de lo contrario 0:")
+        maxMinPrices = int(input())
 
-    getCases(sector, interval, price, daysAfter)
+    getCases(sector, interval, trend, daysAfter, maxMinPrices)
 
 
 if __name__ == '__main__':
