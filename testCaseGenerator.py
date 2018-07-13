@@ -43,20 +43,25 @@ def getCases(sector, interval, price, daysAfter):
 
         # Guardamos el caso de prueba
 
-        testCase = []
-        for i in dates[date:date+interval-daysAfter]:
+        # -- PARA GUARDAR PRUEBAS CON TENDENCIAS
+        # testCase = []
+        # for i in dates[date:date+interval-daysAfter]:
 
-            if case.loc[i, 2] < case.loc[i+daysAfter, 2]:
-                testCase.append(1)
-            else:
-                testCase.append(0)
+        #     if case.loc[i, 2] < case.loc[i+daysAfter, 2]:
+        #         testCase.append(1)
+        #     else:
+        #         testCase.append(0)
 
-        for i in testCase:
-            testFile.write(str(i)+";")
+        # for i in testCase:
+        #     testFile.write(str(i)+";")
 
+        # -- PARA GUARDAR PRUEBAS CON DIFERENCIAS
         # for index, row in case.iterrows():
         #     testFile.write(
         #         str(round(row[1] - row[2], 3))+";")
+
+        for index, row in case.iterrows():
+            testFile.write(str(round(row[1], 3))+";"+str(round(row[2], 3))+";")
 
         testFile.write(str(trend)+"\n")
 
@@ -85,7 +90,7 @@ def main():
     try:
         price = int(sys.argv[4])
     except:
-        print("Ingrese 1 si desea calcular la tendencia, 0 si desea el precio:")
+        print("Ingrese 1 si desea calcular el precio, 0 si desea la tendencia:")
         price = int(input())
 
 
