@@ -39,6 +39,9 @@ def getIndex(sector, addPrices, addVolume):
             maxPrice = 0
             lowerPrice = 0
 
+        if addVolume:
+            volume = 0
+
         numSets = 0
         for dataSet in sets:
             # Obtenemos la fila de la fecha actual
@@ -55,7 +58,7 @@ def getIndex(sector, addPrices, addVolume):
                 maxPrice += row[2]
                 lowerPrice += row[3]
             if addVolume:
-                volume += row[4]
+                volume += row[5]
 
         # Promediamos
         openPrice = round(openPrice / numSets, 3)
@@ -66,7 +69,7 @@ def getIndex(sector, addPrices, addVolume):
             lowerPrice = round(lowerPrice / numSets, 3)
 
         if addVolume:
-            volume = round(volume / numSets, 3)
+            volume = round(volume, 3)
 
         # Escribimos en el archivo
 
