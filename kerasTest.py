@@ -11,7 +11,7 @@ def main():
 
 	df = readData(file, ';')
 
-	xNorm, x, y = prepareData(df, 60)
+	xNorm, x, y = prepareData(df, 27)
 
 	xTrain = xNorm[:2081, 1:]
 	yTrain = y[:2081, :]
@@ -20,14 +20,22 @@ def main():
 
 	print(yTest)
 
+	x = np.array([[i] for i in range(200)])
+	y = np.array([[i**3] for i in range(200)])
+
+	xTrain = x[:150, :]
+	yTrain = y[:150, :]
+	xTest = x[150:, :]
+	yTest = y[150:, :]
+
 	n_hidden_layers = 2
-	hidden_size = [180, 120]
+	hidden_size = [200, 120]
 	out_classes = 1
 
 	learning_rate = 0.001
 	epochs = 20
 
-	deepNN = KerasDeepNN(hidden_size, xTrain.shape[0], 2, 30)
+	deepNN = KerasDeepNN(hidden_size, xTrain.shape[0], 1, 1)
 
 	error = deepNN.train(xTrain, yTrain, xTest, yTest, epochs)
 

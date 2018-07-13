@@ -4,7 +4,7 @@ import pandas as pd
 import datetime
 
 
-def getIndex(sector, addPrices):
+def getIndex(sector, addPrices, addVolume):
 
     # Ingresamos a la carpeta del sector
     os.chdir("Mark1 Data/"+sector)
@@ -36,8 +36,11 @@ def getIndex(sector, addPrices):
         closePrice = 0
 
         if addPrices:
-            lowerPrice = 0
             maxPrice = 0
+            lowerPrice = 0
+
+        if addVolume:
+            volume = 0
 
         numSets = 0
         for dataSet in sets:
@@ -52,23 +55,33 @@ def getIndex(sector, addPrices):
             openPrice += row[1]
             closePrice += row[4]
             if addPrices:
-                lowerPrice += row[3]
                 maxPrice += row[2]
+                lowerPrice += row[3]
+            if addVolume:
+                volume += row[5]
 
         # Promediamos
         openPrice = round(openPrice / numSets, 3)
         closePrice = round(closePrice / numSets, 3)
 
         if addPrices:
-            lowerPrice = round(lowerPrice / numSets, 3)
             maxPrice = round(maxPrice / numSets, 3)
+            lowerPrice = round(lowerPrice / numSets, 3)
+
+        if addVolume:
+            volume = round(volume, 3)
 
         # Escribimos en el archivo
-        if not addPrices:
-            fIndex.write(str(date)+";"+str(openPrice)+";"+str(closePrice)+"\n")
-        else:
-            fIndex.write(str(date)+";"+str(openPrice)+";" +
-                         str(closePrice)+";"+str(lowerPrice)+";"+str(maxPrice)+"\n")
+
+        string = str(date)+";"+str(openPrice)+";"+str(closePrice)
+
+        if addPrices:
+            string += ";"+str(maxPrice)+";"+str(lowerPrice)
+
+        if addVolume:
+            string += ";"+str(volume)
+
+        fIndex.write(string+"\n")
 
     fIndex.close()
 
@@ -81,14 +94,36 @@ def main():
         sector = input()
 
     try:
-        print("Ingrese 1 si desea incluir en el indice el precio mas alto y el mas bajo diario, de lo contrario ingrese 0:")
-        addMaxMinPrices = int(input())
+        addMaxMinPrices = int(sys.argv[2])
         assert(addMaxMinPrices == 1 or addMaxMinPrices == 0)
-    except:
-        print("Error, ha ingresado un valor incorrecto.")
-        sys.exit()
 
-    getIndex(sector, addMaxMinPrices)
+    except:
+
+        try:
+            print("Ingrese 1 si desea incluir en el indice el precio mas alto y el mas bajo diario, de lo contrario ingrese 0:")
+            addMaxMinPrices = int(input())
+            assert(addMaxMinPrices == 1 or addMaxMinPrices == 0)
+        except:
+            print("Error, ha ingresado un valor incorrecto.")
+            sys.exit()
+
+
+    try:
+        addVolume = int(sys.argv[3])
+        assert(addVolume == 1 or addVolume == 0)
+
+    except:
+
+        try:
+            print("Ingrese 1 si desea incluir en el volumen de transacciones diario, de lo contrario ingrese 0:")
+            addVolume = int(input())
+            assert(addVolume == 1 or addVolume == 0)
+        except:
+            print("Error, ha ingresado un valor incorrecto.")
+            sys.exit()
+
+
+    getIndex(sector, addMaxMinPrices, addVolume)
 
 
 if __name__ == '__main__':

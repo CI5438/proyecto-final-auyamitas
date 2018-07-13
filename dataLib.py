@@ -24,15 +24,16 @@ def readData(file, sep):
 
 # Division de datos en x normalizado, x, y
 def prepareData(df, yColumn):
-    x = df.drop(df.columns[[yColumn]], axis=1)
-    x = x.values
-    lenx = len(x)
-    xNorm = x/np.amax(x, axis=0)
-    xNorm = np.c_[np.ones(lenx), xNorm]
+	x = df.drop(df.columns[[yColumn]], axis=1)
+	x = x.values
+	lenx = len(x)
+	xNorm = (np.amax(x, axis=0) - x)/(np.amax(x, axis=0) - np.amin(x, axis=0))
 
-    #xNorm = np.c_[np.ones(lenx), x]
+	xNorm = np.c_[np.ones(lenx), xNorm]
 
-    y = df[[yColumn]]
-    y = y.values
-    print(xNorm, x, y)
-    return xNorm, x, y
+	#xNorm = np.c_[np.ones(lenx), x]
+
+	y = df[[yColumn]]
+	y = y.values
+
+	return xNorm, x, y

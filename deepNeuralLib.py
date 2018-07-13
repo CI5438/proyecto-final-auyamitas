@@ -15,8 +15,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import LSTM
+from keras.layers import Dense, BatchNormalization
+from keras.layers import LSTM, Dropout
 import json
 import sys
 
@@ -342,10 +342,16 @@ class KerasDeepNN(object):
         self.model = Sequential()
 
         #for size in hiddenSize:
-        self.model.add(LSTM(hiddenSize[0], input_shape=(nDays, nFeatures)))
+        self.model.add(BatchNormalization())
+        self.model.add(LSTM(hiddenSize[0], return_sequences=True, input_shape=(nDays, nFeatures), activation='relu'))
+        self.model.add(LSTM(hiddenSize[1], activation='relu'))
+        self.model.add(Dropout(0.5))
 
-        self.model.add(Dense(1))
-        self.model.compile(loss='mae', optimizer='adam')
+        # self.model.add(Dense(hiddenSize[0], input_dim=nFeatures*nDays, activation='softmax'))
+        # self.model.add(Dense(hiddenSize[1], activation='softmax'))
+        self.model.add(Dense(1, activation='linear'))
+        self.model.compile(loss='mae', optimizer='adam', metrics=['accuracy'])
+        #print(self.model.summary())
 
 
     def train(self, x, y, xTest, yTest, maxIters):
@@ -353,7 +359,6 @@ class KerasDeepNN(object):
         x = x.reshape((x.shape[0], self.nDays, self.nFeatures))
 
         xTest = xTest.reshape((xTest.shape[0], self.nDays, self.nFeatures))
-
 
         history = self.model.fit(x, y, epochs=maxIters, batch_size=x.shape[0],
                                  validation_data=(xTest, yTest), verbose=2, shuffle=False)
