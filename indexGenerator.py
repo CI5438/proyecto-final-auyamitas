@@ -4,7 +4,7 @@ import pandas as pd
 import datetime
 
 
-def getIndex(sector, addPrices):
+def getIndex(sector, addPrices, addVolume):
 
     # Ingresamos a la carpeta del sector
     os.chdir("Mark1 Data/"+sector)
@@ -54,6 +54,8 @@ def getIndex(sector, addPrices):
             if addPrices:
                 maxPrice += row[2]
                 lowerPrice += row[3]
+            if addVolume:
+                volume += row[4]
 
         # Promediamos
         openPrice = round(openPrice / numSets, 3)
@@ -63,12 +65,20 @@ def getIndex(sector, addPrices):
             maxPrice = round(maxPrice / numSets, 3)
             lowerPrice = round(lowerPrice / numSets, 3)
 
+        if addVolume:
+            volume = round(volume / numSets, 3)
+
         # Escribimos en el archivo
-        if not addPrices:
-            fIndex.write(str(date)+";"+str(openPrice)+";"+str(closePrice)+"\n")
-        else:
-            fIndex.write(str(date)+";"+str(openPrice)+";" +
-                         str(closePrice)+";"+str(maxPrice)+";"+str(lowerPrice)+"\n")
+
+        string = str(date)+";"+str(openPrice)+";"+str(closePrice)
+
+        if addPrices:
+            string += ";"+str(maxPrice)+";"+str(lowerPrice)
+
+        if addVolume:
+            string += ";"+str(volume)
+
+        fIndex.write(string+"\n")
 
     fIndex.close()
 
@@ -94,7 +104,23 @@ def main():
             print("Error, ha ingresado un valor incorrecto.")
             sys.exit()
 
-    getIndex(sector, addMaxMinPrices)
+
+    try:
+        addVolume = int(sys.argv[3])
+        assert(addVolume == 1 or addVolume == 0)
+
+    except:
+
+        try:
+            print("Ingrese 1 si desea incluir en el volumen de transacciones diario, de lo contrario ingrese 0:")
+            addVolume = int(input())
+            assert(addVolume == 1 or addVolume == 0)
+        except:
+            print("Error, ha ingresado un valor incorrecto.")
+            sys.exit()
+
+
+    getIndex(sector, addMaxMinPrices, addVolume)
 
 
 if __name__ == '__main__':
