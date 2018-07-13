@@ -52,8 +52,8 @@ def getIndex(sector, addPrices):
             openPrice += row[1]
             closePrice += row[4]
             if addPrices:
-                lowerPrice += row[2]
-                maxPrice += row[3]
+                lowerPrice += row[3]
+                maxPrice += row[2]
 
         # Promediamos
         openPrice = round(openPrice / numSets, 3)
