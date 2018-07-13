@@ -2,11 +2,10 @@ import numpy as np
 import pandas as pd 
 
 # from subprocess import check_output
-from keras.layers import Dense, Activation, Dropout
-from keras.layers import LSTM
-from keras.models import Sequential
+
 # from sklearn.cross_validation import  train_test_split
 # import time 
+<<<<<<< HEAD
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 from numpy import newaxis
@@ -24,43 +23,59 @@ def createDataSet(df, lookBack=30):
 		y.append(df[i + lookBack + 2, 2])
 
 	return np.array(x), np.array(y)
+=======
+#from numpy import newaxis
+>>>>>>> c8152f8466a480b91838949c355c9b5dc64f8e5c
 
+import matplotlib.pyplot as plt
+from superDataLib import *
+from superKerasRNNLib import *
 
 def main():
+	lookBack = 60 
+	percentage = 0.9
+	iterations = 500
 
+<<<<<<< HEAD
 	# Obtenemos la y real
 	testCase = 'Mark1 Data/Communication Services Sector/Communication Services Sector.test.18.txt'
 	df = readData(testCase, ';')
 	y = df[df.columns[-1]]
+=======
+	# Obtenemos la y real (sector, lookBack)
+	y = classifiedY('Communication Services Sector', lookBack)
+>>>>>>> c8152f8466a480b91838949c355c9b5dc64f8e5c
 
+	# Dividimos la y real en entrenamiento y prueba
+	trainSize = int(len(y)*percentage)
 
-	trainSize = int(len(df)*0.9)
 	y1 = y[:trainSize]
 	y2 = y[trainSize:]
 
-	# Preparamos el archivo del indice
-	file = 'Mark1 Data/Communication Services Sector/Communication Services Sector - Index.txt'
-	sectorName = file.split('/')[1]
-	df = readData(file, ';')
+	# Preparamos el archivo del indice (sector, scale?, scaleRange)
+	df = prepareData('Communication Services Sector', True, (0, 1))
 
+<<<<<<< HEAD
 	scaler = MinMaxScaler(feature_range=(0, 1))    # mejor manera?
 	df = scaler.fit_transform(df)
 
 	lookBack = 18
+=======
+	# Obtenemos DataSet
+>>>>>>> c8152f8466a480b91838949c355c9b5dc64f8e5c
 	x, y = createDataSet(df, lookBack)
-	#xTest, yTest = createDataSet(test, lookBack)
 
-	xTrain = x[:trainSize, :]
-	xTest = x[trainSize:, :]
-	yTrain = y[:trainSize]
-	yTest = y[trainSize:]
-
+<<<<<<< HEAD
 	xTrain = np.reshape(xTrain, (xTrain.shape[0], 4, xTrain.shape[1]))
 	xTest = np.reshape(xTest, (xTest.shape[0], 4, xTest.shape[1]))
+=======
+	# Dividimos DataSet (x, y, trainSize, features)
+	xTrain, yTrain, xTest, yTest = splitDataSet(x, y, trainSize, 1)
+>>>>>>> c8152f8466a480b91838949c355c9b5dc64f8e5c
 
-	# Creamos el modelo
-	model = Sequential()
+	# Creamos el modelo: (layers, inputSize, activation, loss, metrics)
 
+<<<<<<< HEAD
 	model.add(LSTM(50, input_shape=(4,18), return_sequences=True))
 	model.add(Dropout(0.5))
 
@@ -74,37 +89,29 @@ def main():
 	model.add(Activation('linear'))
 
 	model.compile(loss="msle", optimizer="rmsprop", metrics=["accuracy"])
+=======
+	model = getLSTMmodel([50, 200, 10], (1, 60), 'linear', 'msle', 'accuracy')
+>>>>>>> c8152f8466a480b91838949c355c9b5dc64f8e5c
 
 	# Entrenamos
-	model.fit(xTrain, yTrain, batch_size=xTrain.shape[0], epochs=500, validation_data=(xTest, yTest))
+	model.fit(xTrain, yTrain, batch_size=xTrain.shape[0], epochs=iterations, validation_data=(xTest, yTest))
 
 	# Predecimos conjunto de entrenamiento
-	predictions = model.predict(xTrain)
-
-
-	yAproxTrain = []
-	for i in range(len(xTrain)):
-		if xTrain[i, 0, -1] < predictions[i]:
-			yAproxTrain.append(1)
-		else:
-			yAproxTrain.append(0)
+	trainPredictions = model.predict(xTrain)
+	yAproxTrain = classifyFromPrediction(xTrain, trainPredictions)
 
 	# Predecimos conjunto de prueba
-	testPredictions = model.predict(xTest)
+	predictions = model.predict(xTest)
+	yAproxTest = classifyFromPrediction(xTest, predictions)
 
-	yAproxTest = []
-	for i in range(len(xTest)):
-		if xTest[i, 0, -1] < predictions[i]:
-			yAproxTest.append(1)
-		else:
-			yAproxTest.append(0)
-
+	# Obtenemos errores de clasificacion
 	errorTrain = sum(abs(y1 - np.array(yAproxTrain)))*100/len(y1)
 	errorTest = sum(abs(y2 - np.array(yAproxTest)))*100/len(y2)
 
+
 	print("Training error: "+str(errorTrain)+" Testing error: "+str(errorTest))
 
-
+	# Guardamos prediccion total
 	f = open("test.txt", "w")
 
 	for i in yAproxTrain:
