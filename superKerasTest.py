@@ -29,7 +29,7 @@ def createDataSet(df, lookBack=30):
 def main():
 
 	# Obtenemos la y real
-	testCase = 'Mark1 Data/Technology Sector/Technology Sector.test.30.txt'
+	testCase = 'Mark1 Data/Communication Services Sector/Communication Services Sector.test.30.txt'
 	df = readData(testCase, ';')
 	y = df[df.columns[-1]]
 
@@ -39,7 +39,7 @@ def main():
 	y2 = y[trainSize:]
 
 	# Preparamos el archivo del indice
-	file = 'Mark1 Data/Technology Sector/Technology Sector - Index.txt'
+	file = 'Mark1 Data/Communication Services Sector/Communication Services Sector - Index.txt'
 	sectorName = file.split('/')[1]
 	df = readData(file, ';')
 

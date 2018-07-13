@@ -10,14 +10,13 @@ def main():
 	sectorName = file.split('/')[1]
 
 	df = readData(file, ';')
-	print(df)
 
 	xNorm, x, y = prepareData(df, 60)
 
 	xTrain = xNorm[:2081, 1:]
 	yTrain = y[:2081, :]
-	xTest = xNorm[2081:, 1:]
-	yTest = y[2081:, :]
+	xTest = xNorm[2075:, 1:]
+	yTest = y[2075:, :]
 
 	print(yTest)
 
@@ -25,7 +24,7 @@ def main():
 	hidden_size = [180, 120]
 	out_classes = 1
 
-	learning_rate = 0.01
+	learning_rate = 0.001
 	epochs = 20
 
 	deepNN = KerasDeepNN(hidden_size, xTrain.shape[0], 2, 30)

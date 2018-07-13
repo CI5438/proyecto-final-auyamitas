@@ -35,5 +35,5 @@ def prepareData(df, yColumn):
 
     y = df[[yColumn]]
     y = y.values
-
+    print(xNorm, x, y)
     return xNorm, x, y
