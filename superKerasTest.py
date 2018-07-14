@@ -33,7 +33,6 @@ def main():
 	df = readData(testCase, ';')
 	y = df[df.columns[-1]]
 
-
 	trainSize = int(len(df)*0.9)
 	y1 = y[:trainSize]
 	y2 = y[trainSize:]
@@ -46,7 +45,7 @@ def main():
 	scaler = MinMaxScaler(feature_range=(0, 1))    # mejor manera?
 	df = scaler.fit_transform(df)
 
-	lookBack = 30 
+	lookBack = 30
 	x, y = createDataSet(df, lookBack)
 	#xTest, yTest = createDataSet(test, lookBack)
 
@@ -104,8 +103,7 @@ def main():
 
 	print("Training error: "+str(errorTrain)+" Testing error: "+str(errorTest))
 
-
-	f = open("test.txt", "w")
+	f = open("test.txt", "a")
 
 	for i in yAproxTrain:
 		f.write(str(i)+"\n")
@@ -117,5 +115,8 @@ def main():
 
 
 if __name__ == '__main__':
+
+	# daysTest = [1,2,3,4,5,7,10,15,20,25,30,45,60]
+	# for day in daysTest:
 	main()
 

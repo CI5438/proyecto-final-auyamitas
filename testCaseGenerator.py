@@ -109,7 +109,7 @@ def main():
         print("Ingrese 1 si desea incluir el precio maximo y minimo, de lo contrario 0:")
         maxMinPrices = int(input())
 
-    getCases(sector, interval, trend, daysAfter, maxMinPrices)
+    getCases(sector, interval, price, daysAfter, maxMinPrices)
 
 
 if __name__ == '__main__':
