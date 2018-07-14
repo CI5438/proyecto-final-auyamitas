@@ -19,7 +19,6 @@ def getData(file, normalize=False):
 
 
 def readData(file, sep):
-    print(type(file))
     dataSet = pd.read_csv(file, sep=sep, comment="#", header=None)
     return dataSet
 
