@@ -12,7 +12,8 @@ from superDataLib import *
 from superKerasRNNLib import *
 
 def main():
-	lookBack = 60 
+	lookBack = 30
+	daysAfter = 1
 	percentage = 0.9
 	iterations = 500
 
@@ -29,14 +30,14 @@ def main():
 	df = prepareData('Communication Services Sector', True, (0, 1))
 
 	# Obtenemos DataSet
-	x, y = createDataSet(df, lookBack)
+	x, y = createDataSet(df, lookBack, daysAfter)
 
 	# Dividimos DataSet (x, y, trainSize, features)
 	xTrain, yTrain, xTest, yTest = splitDataSet(x, y, trainSize, 1)
 
 	# Creamos el modelo: (layers, inputSize, activation, loss, metrics)
 
-	model = getLSTMmodel([50, 200, 10], (1, 60), 'linear', 'msle', 'accuracy')
+	model = getLSTMmodel([50, 200, 10], (1, 30), 'linear', 'msle', 'accuracy')
 
 	# Entrenamos
 	model.fit(xTrain, yTrain, batch_size=xTrain.shape[0], epochs=iterations, validation_data=(xTest, yTest))

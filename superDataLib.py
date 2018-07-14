@@ -8,14 +8,14 @@ def readData(file, sep):
     dataSet = pd.read_csv(file, sep=sep, comment="#", header=None)
     return dataSet
 
-def createDataSet(df, lookBack=30):
+def createDataSet(df, lookBack, daysAfter):
 	x = []
 	y = []
 	
-	for i in range(len(df) - lookBack-3):
+	for i in range(len(df) - lookBack-daysAfter):
 		a = df[i:(i + lookBack), 2]
 		x.append(a)
-		y.append(df[i + lookBack + 2, 2])
+		y.append(df[i + lookBack + daysAfter-1, 2])
 
 	return np.array(x), np.array(y)
 
