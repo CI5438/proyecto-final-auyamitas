@@ -28,11 +28,6 @@ def main():
 	# Preparamos el archivo del indice (sector, scale?, scaleRange)
 	df = prepareData('Communication Services Sector', True, (0, 1))
 
-	scaler = MinMaxScaler(feature_range=(0, 1))    # mejor manera?
-	df = scaler.fit_transform(df)
-
-	lookBack = 30
-
 	# Obtenemos DataSet
 	x, y = createDataSet(df, lookBack)
 
