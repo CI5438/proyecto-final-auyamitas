@@ -5,7 +5,7 @@ from superDataLib import *
 from superKerasRNNLib import *
 
 def main():
-	lookBack = 30
+	lookBack = 45
 	daysAfter = 2
 	percentage = 0.9
 	iterations = 20
@@ -25,8 +25,8 @@ def main():
 	# Obtenemos DataSet
 	x, y = createDataSet(df, lookBack, daysAfter)
 
-	# Dividimos DataSet (x, y, trainSize, features)
-	xTrain, yTrain, xTest, yTest = splitDataSet(x, y, trainSize, 1)
+	# Dividimos DataSet (x, y, trainSize, features, reshape)
+	xTrain, yTrain, xTest, yTest = splitDataSet(x, y, trainSize, 1, True)
 
 	# Creamos el modelo: (layers, inputSize, activation, loss, metrics)
 
@@ -61,6 +61,26 @@ def main():
 		f.write(str(i)+"\n")
 
 	f.close()
+
+	trainValues = xTrain[:,0, -1]
+
+	plt.plot([i for i in range(len(trainValues))], trainValues, color='b')
+	plt.plot([i for i in range(len(trainPredictions))], trainPredictions, color='r')
+	plt.show()
+
+	testValues = xTest[:,0, -1]
+
+	plt.plot([i for i in range(len(testValues))], testValues, color='b')
+	plt.plot([i for i in range(len(predictions))], predictions, color='r')
+	plt.show()
+
+	plt.plot([i for i in range(len(y1))], y1, 'b-')
+	plt.plot([i for i in range(len(yAproxTrain))], yAproxTrain, 'r-')
+	plt.show()
+
+	plt.plot([i for i in range(len(y2))], y2, 'b-')
+	plt.plot([i for i in range(len(yAproxTest))], yAproxTest, 'r-')
+	plt.show()
 
 
 if __name__ == '__main__':
