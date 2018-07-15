@@ -1,50 +1,25 @@
-import numpy as np 
-import pandas as pd 
+import numpy as np
+import pandas as pd
 
 # from subprocess import check_output
 
 # from sklearn.cross_validation import  train_test_split
-# import time 
-<<<<<<< HEAD
-from sklearn.preprocessing import MinMaxScaler
-import matplotlib.pyplot as plt
-from numpy import newaxis
-
-from dataLib import *
-
-
-def createDataSet(df, lookBack=30):
-	x = []
-	y = []
-
-	for i in range(len(df) - lookBack-3):
-		a = df[i:(i + lookBack), 2:]
-		x.append(a)
-		y.append(df[i + lookBack + 2, 2])
-
-	return np.array(x), np.array(y)
-=======
+# import time
 #from numpy import newaxis
->>>>>>> c8152f8466a480b91838949c355c9b5dc64f8e5c
 
 import matplotlib.pyplot as plt
 from superDataLib import *
 from superKerasRNNLib import *
 
-def main():
-	lookBack = 60 
-	percentage = 0.9
-	iterations = 500
 
-<<<<<<< HEAD
-	# Obtenemos la y real
-	testCase = 'Mark1 Data/Communication Services Sector/Communication Services Sector.test.18.txt'
-	df = readData(testCase, ';')
-	y = df[df.columns[-1]]
-=======
+def main():
+	lookBack = 30
+	daysAfter = 2
+	percentage = 0.9
+	iterations = 50
+
 	# Obtenemos la y real (sector, lookBack)
 	y = classifiedY('Communication Services Sector', lookBack)
->>>>>>> c8152f8466a480b91838949c355c9b5dc64f8e5c
 
 	# Dividimos la y real en entrenamiento y prueba
 	trainSize = int(len(y)*percentage)
@@ -55,46 +30,20 @@ def main():
 	# Preparamos el archivo del indice (sector, scale?, scaleRange)
 	df = prepareData('Communication Services Sector', True, (0, 1))
 
-<<<<<<< HEAD
-	scaler = MinMaxScaler(feature_range=(0, 1))    # mejor manera?
-	df = scaler.fit_transform(df)
-
-	lookBack = 18
-=======
 	# Obtenemos DataSet
->>>>>>> c8152f8466a480b91838949c355c9b5dc64f8e5c
-	x, y = createDataSet(df, lookBack)
+	x, y = createDataSet(df, lookBack, daysAfter)
 
-<<<<<<< HEAD
-	xTrain = np.reshape(xTrain, (xTrain.shape[0], 4, xTrain.shape[1]))
-	xTest = np.reshape(xTest, (xTest.shape[0], 4, xTest.shape[1]))
-=======
-	# Dividimos DataSet (x, y, trainSize, features)
-	xTrain, yTrain, xTest, yTest = splitDataSet(x, y, trainSize, 1)
->>>>>>> c8152f8466a480b91838949c355c9b5dc64f8e5c
+	# Dividimos DataSet (x, y, trainSize, features, reshape)
+	xTrain, yTrain, xTest, yTest = splitDataSet(x, y, trainSize, 1, True)
 
 	# Creamos el modelo: (layers, inputSize, activation, loss, metrics)
 
-<<<<<<< HEAD
-	model.add(LSTM(50, input_shape=(4,18), return_sequences=True))
-	model.add(Dropout(0.5))
-
-	model.add(LSTM(200, return_sequences=True))
-	model.add(Dropout(0.5))
-
-	model.add(LSTM(10, return_sequences=False))
-	model.add(Dropout(0.5))
-
-	model.add(Dense(1))
-	model.add(Activation('linear'))
-
-	model.compile(loss="msle", optimizer="rmsprop", metrics=["accuracy"])
-=======
-	model = getLSTMmodel([50, 200, 10], (1, 60), 'linear', 'msle', 'accuracy')
->>>>>>> c8152f8466a480b91838949c355c9b5dc64f8e5c
+	model = getLSTMmodel([50, 200, 10], (1, lookBack),
+	                     'linear', 'msle', 'accuracy')
 
 	# Entrenamos
-	model.fit(xTrain, yTrain, batch_size=xTrain.shape[0], epochs=iterations, validation_data=(xTest, yTest))
+	model.fit(xTrain, yTrain,
+	          batch_size=xTrain.shape[0], epochs=iterations, validation_data=(xTest, yTest))
 
 	# Predecimos conjunto de entrenamiento
 	trainPredictions = model.predict(xTrain)
@@ -108,6 +57,7 @@ def main():
 	errorTrain = sum(abs(y1 - np.array(yAproxTrain)))*100/len(y1)
 	errorTest = sum(abs(y2 - np.array(yAproxTest)))*100/len(y2)
 
+	f = open("test.txt", "a")
 
 	print("Training error: "+str(errorTrain)+" Testing error: "+str(errorTest))
 
@@ -122,7 +72,30 @@ def main():
 
 	f.close()
 
+	trainValues = xTrain[:, 0, -1]
+
+	plt.plot([i for i in range(len(trainValues))], trainValues, color='b')
+	plt.plot([i for i in range(len(trainPredictions))],
+	         trainPredictions, color='r')
+	plt.show()
+
+	testValues = xTest[:, 0, -1]
+
+	plt.plot([i for i in range(len(testValues))], testValues, color='b')
+	plt.plot([i for i in range(len(predictions))], predictions, color='r')
+	plt.show()
+
+	plt.plot([i for i in range(len(y1))], y1, 'b-')
+	plt.plot([i for i in range(len(yAproxTrain))], yAproxTrain, 'r-')
+	plt.show()
+
+	plt.plot([i for i in range(len(y2))], y2, 'b-')
+	plt.plot([i for i in range(len(yAproxTest))], yAproxTest, 'r-')
+	plt.show()
+
 
 if __name__ == '__main__':
-	main()
 
+	# daysTest = [1,2,3,4,5,7,10,15,20,25,30,45,60]
+	# for day in daysTest:
+	main()

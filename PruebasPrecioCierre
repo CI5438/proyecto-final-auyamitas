@@ -1,0 +1,525 @@
+Sector: Communication services
+Features: Precio de cierre 
+days after: 3 
+Epocas: 500 
+
+-------------------------------
+
+Intervalo: 1 dia
+
+Corrida: 1 
+Resultado: Training error 49% 
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 57% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 57%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 57%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 44%
+		   Testing error 46%
+
+-------------------------------
+
+Intervalo: 2 dias 
+
+Corrida: 1 
+Resultado: Training error 51% 
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 55% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 45%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 57%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 54%
+		   Testing error 46%
+
+-------------------------------
+Intervalo: 3 dias 
+
+Corrida: 1 
+Resultado: Training error 46% 
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 54% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 46%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 45%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 51%
+		   Testing error 46%
+
+-------------------------------
+
+Intervalo: 4 dias 
+
+Corrida: 1 
+Resultado: Training error 51% 
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 48% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 51%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 45%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 49%
+		   Testing error 46%
+
+-------------------------------
+
+Intervalo: 5 dias 
+
+Corrida: 1 
+Resultado: Training error 52% 
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 48% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 48%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 50%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 46%
+		   Testing error 46%
+
+-------------------------------
+
+Intervalo: 7 dias
+
+Corrida: 1 
+Resultado: Training error 55% 
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 51% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 48%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 52%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 48%
+		   Testing error 46%
+
+-------------------------------
+
+Intervalo: 10 dias
+
+Corrida: 1 
+Resultado: Training error 52% 
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 45% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 44%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 46%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 51%
+		   Testing error 46%
+
+-------------------------------
+
+Intervalo: 15 dias
+
+Corrida: 1 
+Resultado: Training error 45% 
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 53% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 44%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 44%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 52%
+		   Testing error 46%
+
+-------------------------------
+
+Intervalo: 20 dias
+
+Corrida: 1 
+Resultado: Training error 54% 
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 53% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 52% 
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 45%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 44%
+		   Testing error 46%
+
+-------------------------------
+
+Intervalo: 25 dias
+
+Corrida: 1 
+Resultado: Training error 53%
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 51%
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 50%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 51%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 51%
+		   Testing error 46%
+
+-------------------------------
+
+Intervalo: 30 dias
+
+Corrida: 1  
+Resultado: Training error 44% 
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 49% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 45%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 48%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 46%
+		   Testing error 46%
+
+-------------------------------
+
+Intervalo: 45 dias 
+
+Corrida: 1 
+Resultado: Training error 44% 
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 46% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 50%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 45%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 43%
+		   Testing error 46%
+
+-------------------------------
+
+Intervalo: 60 dias 
+
+Corrida: 1 
+Resultado: Training error 51% 
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 43% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 52%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 44%
+		   Testing error 46%
+
+Corrida 5: 
+Resultado: Training error 52%
+		   Testing error 46%
+
+--------------------------------------------------------------------------------------------------------------------
+
+Sector: Communication services
+Features: Precio de cierre 
+days after: 1
+Epocas: 500 
+
+
+Intervalo: 30 dias 
+
+Corrida: 1 
+Resultado: Training error 52% 
+		   Testing error 45%
+
+------------------------------
+
+Intervalo: 15 dias
+
+Corrida: 1 
+Resultado: Training error 52% 
+		   Testing error 46%
+
+------------------------------------------------------------------------------------------------------------------
+
+Sector: Communication services     
+Features: Precio de cierre 
+days after: 2
+
+Intervalo: 30 dias 
+
+###############################
+
+Epocas: 500          
+
+Corrida 1:
+Resultado: Training error 49% 
+		   Testing error 43%
+
+Corrida: 2
+Resultado: Training error 51% 
+		   Testing error 44%
+
+Corrida: 3
+Resultado: Training error 49% 
+		   Testing error 43%
+
+Corrida: 4
+Resultado: Training error 46% 
+		   Testing error 45%
+
+Corrida: 5
+Resultado: Training error 46% 
+		   Testing error 43%
+
+##############################
+
+Epocas: 10
+
+Corrida 1:
+Resultado: Training error 52% 
+		   Testing error 44%
+
+Corrida 2:
+Resultado: Training error 53% 
+		   Testing error 44%
+
+Corrida 3:
+Resultado: Training error 53% 
+		   Testing error 44%
+
+Corrida 4:
+Resultado: Training error 51% 
+		   Testing error 44%
+
+Corrida 5:
+Resultado: Training error 53% 
+		   Testing error 44%
+
+##############################
+
+Epocas: 20
+
+Corrida 1:
+Resultado: Training error 47% 
+		   Testing error 45%
+
+Corrida 2:
+Resultado: Training error 47% 
+		   Testing error 43%
+
+Corrida 3:
+Resultado: Training error 47% 
+		   Testing error 43%
+
+Corrida 4:
+Resultado: Training error 48% 
+		   Testing error 43%
+
+Corrida 5:
+Resultado: Training error 48% 
+		   Testing error 42%
+
+##############################
+
+Epocas: 50								 MEJOR HASTA AHORA!
+
+Corrida 1:
+Resultado: Training error 50% 
+		   Testing error 42%
+
+Corrida 2:
+Resultado: Training error 52% 
+		   Testing error 44%
+
+Corrida 3:
+Resultado: Training error 50% 
+		   Testing error 43%
+
+Corrida 4:
+Resultado: Training error 50% 
+		   Testing error 44%
+
+Corrida 5:
+Resultado: Training error 51% 
+		   Testing error 43%
+
+
+##############################
+
+Epocas: 100
+
+Corrida 1:
+Resultado: Training error 47% 
+		   Testing error 44%
+
+Corrida 2:
+Resultado: Training error 45% 
+		   Testing error 46%
+
+Corrida 3:
+Resultado: Training error 50% 
+		   Testing error 42%
+
+Corrida 4:
+Resultado: Training error 49% 
+		   Testing error 43%
+
+Corrida 5:
+Resultado: Training error 46% 
+		   Testing error 46%
+
+
+##############################
+
+------------------------------
+
+Intervalo: 15 dias
+
+Corrida: 1 
+Resultado: Training error 51%
+		   Testing error 44%
+
+Corrida: 2
+Resultado: Training error 50%
+		   Testing error 44%
+
+------------------------------
+
+Intervalo: 60 dias
+
+Corrida: 1 
+Resultado: Training error 45%
+		   Testing error 43%
+
+Corrida: 1 
+Resultado: Training error 43%
+		   Testing error 48%
+
+------------------------------
+
+Intervalo: 20 dias
+
+Corrida: 1 
+Resultado: Training error 46%
+		   Testing error 45%
+
+------------------------------
+
+Intervalo: 25 dias
+
+Corrida: 1 
+Resultado: Training error 46%
+		   Testing error 44%
+
+Corrida: 2
+Resultado: Training error 51%
+		   Testing error 44%
+
+Corrida: 3
+Resultado: Training error 45%
+		   Testing error 44%
+
+Corrida: 4
+Resultado: Training error 50%
+		   Testing error 43%
+
+Corrida: 5
+Resultado: Training error 45%
+		   Testing error 45%
