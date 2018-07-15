@@ -13,15 +13,15 @@ def getLSTMmodel(layers, inputShape, activation, loss, metrics):
 	# Primera capa
 	if len(layers) > 1:
 		model.add(LSTM(layers[0], input_shape=inputShape, return_sequences=True))
-		model.add(Dropout(0.5))
+		model.add(Dropout(0.3))
 	else:
 		model.add(LSTM(layers[0], input_shape=inputShape, return_sequences=False))
-		model.add(Dropout(0.5))		
+		model.add(Dropout(0.3))		
 
 	# Capas intermedias
 	for i in layers[1:-1]:
 		model.add(LSTM(i, return_sequences=True))
-		model.add(Dropout(0.5))
+		# model.add(Dropout(0.5))
 
 	# Ultima capa LSTM
 	if len(layers) > 1:
