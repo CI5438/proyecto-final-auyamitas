@@ -54,6 +54,7 @@ def main():
 	errorTrain = sum(abs(y1 - np.array(yAproxTrain)))*100/len(y1)
 	errorTest = sum(abs(y2 - np.array(yAproxTest)))*100/len(y2)
 
+	f = open("test.txt", "a")
 
 	print("Training error: "+str(errorTrain)+" Testing error: "+str(errorTest))
 
@@ -90,5 +91,8 @@ def main():
 
 
 if __name__ == '__main__':
+
+	# daysTest = [1,2,3,4,5,7,10,15,20,25,30,45,60]
+	# for day in daysTest:
 	main()
 

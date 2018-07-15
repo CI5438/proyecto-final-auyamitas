@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
-
 # Lectura de datos CSV
 def readData(file, sep):
     dataSet = pd.read_csv(file, sep=sep, comment="#", header=None)
