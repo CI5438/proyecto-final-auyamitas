@@ -13,9 +13,9 @@ from superKerasRNNLib import *
 
 def main():
 	lookBack = 30
-	daysAfter = 1
+	daysAfter = 3
 	percentage = 0.9
-	iterations = 500
+	iterations = 50
 
 	# Obtenemos la y real (sector, lookBack)
 	y = classifiedY('Communication Services Sector', lookBack)
@@ -37,7 +37,7 @@ def main():
 
 	# Creamos el modelo: (layers, inputSize, activation, loss, metrics)
 
-	model = getLSTMmodel([50, 200, 10], (1, 30), 'linear', 'msle', 'accuracy')
+	model = getLSTMmodel([50, 200, 10], (1, lookBack), 'linear', 'msle', 'accuracy')
 
 	# Entrenamos
 	model.fit(xTrain, yTrain, batch_size=xTrain.shape[0], epochs=iterations, validation_data=(xTest, yTest))
