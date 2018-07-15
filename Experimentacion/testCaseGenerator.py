@@ -1,3 +1,15 @@
+# Universidad Simón Bolívar
+# Abril-Julio 2018
+# Inteligencia Artificial II
+# Prof. Ivette Carolina Martínez 
+# Proyecto Final
+# Generador de Casos de Prueba
+
+# Autores:
+    # Lautaro Villalón 12-10427
+    # Yarima Luciani 13-10770
+    # Benjamin Amos 12-10240
+
 import os
 import sys
 import pandas as pd

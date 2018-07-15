@@ -1,9 +1,21 @@
+# Universidad Simón Bolívar
+# Abril-Julio 2018
+# Inteligencia Artificial II
+# Prof. Ivette Carolina Martínez 
+# Proyecto Final
+# Generador de Indice de un conjunto de acciones
+
+# Autores:
+    # Lautaro Villalón 12-10427
+    # Yarima Luciani 13-10770
+    # Benjamin Amos 12-10240
+
 import os
 import sys
 import pandas as pd
 import datetime
 
-
+# Crea el archivo del indice con diferentes especificaciones
 def getIndex(sector, addPrices, addVolume):
 
     # Ingresamos a la carpeta del sector
@@ -85,7 +97,7 @@ def getIndex(sector, addPrices, addVolume):
 
     fIndex.close()
 
-
+# Toma especificaciones de linea de comandos y crea el indice
 def main():
     try:
         sector = sys.argv[1]

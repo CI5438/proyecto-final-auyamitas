@@ -1,3 +1,15 @@
+# Universidad Simón Bolívar
+# Abril-Julio 2018
+# Inteligencia Artificial II
+# Prof. Ivette Carolina Martínez 
+# Proyecto Final
+# Prueba con Algoritmo en Keras
+
+# Autores:
+    # Lautaro Villalón 12-10427
+    # Yarima Luciani 13-10770
+    # Benjamin Amos 12-10240
+
 import numpy as np
 from deepNeuralLib import *
 from dataLib import *

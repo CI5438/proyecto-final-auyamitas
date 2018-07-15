@@ -2,13 +2,15 @@
 # Abril-Julio 2018
 # Inteligencia Artificial II
 # Prof. Ivette Carolina Martínez 
-# Proyecto 2
-# Libreria de Redes Neuronales
+# Proyecto Final
+# Liberia de Redes Neuronales Profundas
 
 # Autores:
     # Lautaro Villalón 12-10427
     # Yarima Luciani 13-10770
     # Benjamin Amos 12-10240
+
+
 
 import numpy as np
 import pandas as pd

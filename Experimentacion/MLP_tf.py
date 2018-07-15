@@ -1,3 +1,15 @@
+# Universidad Simón Bolívar
+# Abril-Julio 2018
+# Inteligencia Artificial II
+# Prof. Ivette Carolina Martínez 
+# Proyecto Final
+# Prueba con Algoritmo en TensorFlow
+
+# Autores:
+    # Lautaro Villalón 12-10427
+    # Yarima Luciani 13-10770
+    # Benjamin Amos 12-10240
+
 import tensorflow as tf
 import numpy as np
 import json
