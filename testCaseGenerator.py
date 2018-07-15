@@ -3,7 +3,7 @@ import sys
 import pandas as pd
 
 
-def getCases(sector, interval, price, daysAfter, maxMinPrices):
+def getCases(sector, interval, price, daysAfter, maxMinPrices, fileName):
 
     # Ingresamos a la carpeta del sector
     os.chdir("Mark1 Data/"+sector)
@@ -14,13 +14,18 @@ def getCases(sector, interval, price, daysAfter, maxMinPrices):
     else:
         testFile = open(sector+".priceTest." + str(interval) + ".txt", "w")
 
-    indexName = sector+" - Index.txt"
+    if fileName == '':
+        indexName = sector+" - Index.txt"
 
-    indexDataSet = pd.read_csv(indexName, sep=";", header=None)
+        indexDataSet = pd.read_csv(indexName, sep=";", header=None)
+
+    else:
+        indexDataSet = pd.read_csv(fileName, sep=";", header=None)
+
 
     dates = indexDataSet.index.values
 
-    for date in dates[:-(interval+daysAfter)]:
+    for date in dates[:-(interval+daysAfter)+1]:
 
         fromDateSet = indexDataSet.loc[date:]
 
@@ -31,6 +36,7 @@ def getCases(sector, interval, price, daysAfter, maxMinPrices):
 
         caseClosure = float(case.tail(1)[2])
         resultClosure = float(result[2])
+        resultOpening = float(result[1])
         # print(caseClosure, resultClosure)
 
         if not price:
@@ -41,6 +47,7 @@ def getCases(sector, interval, price, daysAfter, maxMinPrices):
 
         else:
             trend = resultClosure
+            
 
         # Guardamos el caso de prueba
 
@@ -61,6 +68,7 @@ def getCases(sector, interval, price, daysAfter, maxMinPrices):
         #     testFile.write(
         #         str(round(row[1] - row[2], 3))+";")
 
+        # -- PARA GUARDAR PRUEBAS NORMALES
         if maxMinPrices:
             for index, row in case.iterrows():
                 testFile.write(
@@ -109,7 +117,7 @@ def main():
         print("Ingrese 1 si desea incluir el precio maximo y minimo, de lo contrario 0:")
         maxMinPrices = int(input())
 
-    getCases(sector, interval, price, daysAfter, maxMinPrices)
+    getCases(sector, interval, price, daysAfter, maxMinPrices, '')
 
 
 if __name__ == '__main__':

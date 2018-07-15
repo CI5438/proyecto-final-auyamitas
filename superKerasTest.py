@@ -12,9 +12,10 @@ from superDataLib import *
 from superKerasRNNLib import *
 
 def main():
-	lookBack = 60 
+	lookBack = 30
+	daysAfter = 2
 	percentage = 0.9
-	iterations = 500
+	iterations = 50
 
 	# Obtenemos la y real (sector, lookBack)
 	y = classifiedY('Communication Services Sector', lookBack)
@@ -29,14 +30,14 @@ def main():
 	df = prepareData('Communication Services Sector', True, (0, 1))
 
 	# Obtenemos DataSet
-	x, y = createDataSet(df, lookBack)
+	x, y = createDataSet(df, lookBack, daysAfter)
 
-	# Dividimos DataSet (x, y, trainSize, features)
-	xTrain, yTrain, xTest, yTest = splitDataSet(x, y, trainSize, 1)
+	# Dividimos DataSet (x, y, trainSize, features, reshape)
+	xTrain, yTrain, xTest, yTest = splitDataSet(x, y, trainSize, 1, True)
 
 	# Creamos el modelo: (layers, inputSize, activation, loss, metrics)
 
-	model = getLSTMmodel([50, 200, 10], (1, 60), 'linear', 'msle', 'accuracy')
+	model = getLSTMmodel([50, 200, 10], (1, lookBack), 'linear', 'msle', 'accuracy')
 
 	# Entrenamos
 	model.fit(xTrain, yTrain, batch_size=xTrain.shape[0], epochs=iterations, validation_data=(xTest, yTest))
@@ -66,6 +67,26 @@ def main():
 		f.write(str(i)+"\n")
 
 	f.close()
+
+	trainValues = xTrain[:,0, -1]
+
+	plt.plot([i for i in range(len(trainValues))], trainValues, color='b')
+	plt.plot([i for i in range(len(trainPredictions))], trainPredictions, color='r')
+	plt.show()
+
+	testValues = xTest[:,0, -1]
+
+	plt.plot([i for i in range(len(testValues))], testValues, color='b')
+	plt.plot([i for i in range(len(predictions))], predictions, color='r')
+	plt.show()
+
+	plt.plot([i for i in range(len(y1))], y1, 'b-')
+	plt.plot([i for i in range(len(yAproxTrain))], yAproxTrain, 'r-')
+	plt.show()
+
+	plt.plot([i for i in range(len(y2))], y2, 'b-')
+	plt.plot([i for i in range(len(yAproxTest))], yAproxTest, 'r-')
+	plt.show()
 
 
 if __name__ == '__main__':
