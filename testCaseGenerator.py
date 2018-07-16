@@ -84,6 +84,7 @@ def getCases(sector, interval, price, daysAfter, maxMinPrices, fileName):
         testFile.write(str(trend)+"\n")
 
     testFile.close()
+    os.chdir('../../')
 
 
 def main():

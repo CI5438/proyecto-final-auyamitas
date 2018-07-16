@@ -84,6 +84,7 @@ def getIndex(sector, addPrices, addVolume):
         fIndex.write(string+"\n")
 
     fIndex.close()
+    os.chdir('../../')
 
 
 def main():
