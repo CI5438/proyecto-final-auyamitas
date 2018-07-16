@@ -92,7 +92,7 @@ def getCorrelations(sector, interval, daysAfter):
 		getIndex(sector, 1, 1)
 		index = readData(indexFile, ';')
 
-		print('Indice obtenido. Obteniendo tendencias y precios..')
+	print('Indice obtenido. Obteniendo tendencias y precios..')
 	trendFile = 'Mark1 Data/'+sector+'/'+sector+'.test.'+str(interval)+'.txt'
 	priceFile = 'Mark1 Data/'+sector+'/' + \
 		sector+'.priceTest.'+str(interval)+'.txt'
