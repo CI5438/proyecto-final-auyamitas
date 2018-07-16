@@ -49,13 +49,13 @@
 * En las carpetas Mejor Caso y Peor Caso, se encuentran las gráficas y valores de erores del mejor caso y los peores casos de nuestro experimento.
 * En la carpeta Caso Curioso, se encuentran las gráficas y valores de un caso que nos pareció curioso en torno a cómo predice el precio. Ya que solo tiene un día por cada muestra del caso de prueba.
 * En la carpeta Correlaciones se encuentran subdirectorios con la información referente al estudio de la disposición de la data y de las correlaciones obtenidas para cada sector en particular. Dentro de cada subdirectorio se encuentran Scatter Plots de cada feature vs la tendencia y el peso respectivamente, además de Matrix Plots de las matrices de correlación para cada caso, y un archivo .txt por cada matriz de correlación para ser leído en su aplicación de hojas de cálculo de preferencia.
-* Todas las correlaciones fueron calculadas haciendo uso de un sólo día de intervalo y para una predicción de precio/tendencia 3 días después. Usted puede obtener otros datos y gráficas producto del estudio con otros intervalos o días de predicción haciendo: 
+* Todas las correlaciones fueron calculadas haciendo uso de un sólo día de intervalo y para una predicción de precio/tendencia 3 días después. Se pueden obtener otros datos y gráficas producto del estudio con otros intervalos o días de predicción haciendo: 
 ```python 
     python3
     > import superDataLib as sdl
     > sdl.saveCorrelations(nuevoIntervalo, nuevosDiasDePrediccion)
 ```
-* En el archivo **requirements.txt** hemos listado todas las librerías que necesitara para poder ejecutar el superKerasPredictor. Para instalarlas con pip usted puede hacer:
+* En el archivo **requirements.txt** hemos listado todas las librerías necesarias para poder ejecutar `superKerasPredictor.py`. Para instalarlas con pip:
 ```bash
     $ pip install -r requirements.txt
     # O si su intérprete de python por defecto no es versión 3.x
