@@ -6,9 +6,9 @@
 # Libreria de Manipulación de Datos
 
 # Autores:
-# Lautaro Villalón 12-10427
-# Yarima Luciani 13-10770
-# Benjamin Amos 12-10240
+	# Lautaro Villalón 12-10427
+	# Yarima Luciani 13-10770
+	# Benjamin Amos 12-10240
 
 import numpy as np
 import pandas as pd
