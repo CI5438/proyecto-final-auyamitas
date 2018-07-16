@@ -1,22 +1,15 @@
-import numpy as np
-import pandas as pd
-
-# from subprocess import check_output
-
-# from sklearn.cross_validation import  train_test_split
-# import time
-#from numpy import newaxis
-
+import numpy as np 
+import pandas as pd 
 import matplotlib.pyplot as plt
 from superDataLib import *
 from superKerasRNNLib import *
 
 
 def main():
-	lookBack = 30
+	lookBack = 45
 	daysAfter = 2
 	percentage = 0.9
-	iterations = 50
+	iterations = 20
 
 	# Obtenemos la y real (sector, lookBack)
 	y = classifiedY('Communication Services Sector', lookBack)

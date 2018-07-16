@@ -22,11 +22,17 @@ def createDataSetDiff(df, lookBack, daysAfter):
 	x = []
 	y = []
 	
-	for i in range(len(df) - lookBack-daysAfter):
+	for i in range(len(df) - lookBack-daysAfter+1):
 		a = df[i:(i + lookBack), 2] - df[i:(i + lookBack), 1]
 		x.append(a)
-		b = df[i + lookBack + daysAfter-1, 2] - df[i + lookBack + daysAfter-1, 1]
-		y.append(b)
+
+		if df[i+lookBack-1, 2] < df[i+lookBack+daysAfter-1, 2]:
+			y.append(1)
+		else:
+			y.append(0)
+
+		# b = df[i + lookBack + daysAfter-1, 2] - df[i + lookBack + daysAfter-1, 1]
+		# y.append(b)
 
 	return np.array(x), np.array(y)
 

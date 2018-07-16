@@ -319,21 +319,53 @@ Resultado: Training error 52%
 Sector: Communication services
 Features: Precio de cierre 
 days after: 1
-Epocas: 500 
+Epocas: 20
 
 
-Intervalo: 30 dias 
+Intervalo: 30 dias      !!!!!!!!!!
 
 Corrida: 1 
-Resultado: Training error 52% 
-		   Testing error 45%
+Resultado: Training error 48% 
+		   Testing error 44%
+
+Corrida 2: 
+Resultado: Training error 48% 
+		   Testing error 47%
+
+Corrida 3: 
+Resultado: Training error 48%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 48%
+		   Testing error 44%
+
+Corrida 5: 
+Resultado: Training error 47%
+		   Testing error 47%
 
 ------------------------------
 
-Intervalo: 15 dias
+Intervalo: 45 dias    !!!!!!!!!!!!
 
 Corrida: 1 
-Resultado: Training error 52% 
+Resultado: Training error 47%
+		   Testing error 46%
+
+Corrida 2: 
+Resultado: Training error 47% 
+		   Testing error 46%
+
+Corrida 3: 
+Resultado: Training error 48%
+		   Testing error 46%
+
+Corrida 4: 
+Resultado: Training error 47%
+		   Testing error 47%
+
+Corrida 5: 
+Resultado: Training error 47%
 		   Testing error 46%
 
 ------------------------------------------------------------------------------------------------------------------
@@ -470,56 +502,24 @@ Resultado: Training error 46%
 
 ------------------------------
 
-Intervalo: 15 dias
+Intervalo: 45 dias     !!!!!!!!
 
-Corrida: 1 
-Resultado: Training error 51%
+Corrida 1:
+Resultado: Training error 46% 
 		   Testing error 44%
 
-Corrida: 2
-Resultado: Training error 50%
-		   Testing error 44%
-
-------------------------------
-
-Intervalo: 60 dias
-
-Corrida: 1 
-Resultado: Training error 45%
+Corrida 2:
+Resultado: Training error 46% 
 		   Testing error 43%
 
-Corrida: 1 
-Resultado: Training error 43%
-		   Testing error 48%
+Corrida 3:
+Resultado: Training error 46% 
+		   Testing error 42%
 
-------------------------------
+Corrida 4:
+Resultado: Training error 48% 
+		   Testing error 42%
 
-Intervalo: 20 dias
-
-Corrida: 1 
-Resultado: Training error 46%
-		   Testing error 45%
-
-------------------------------
-
-Intervalo: 25 dias
-
-Corrida: 1 
-Resultado: Training error 46%
-		   Testing error 44%
-
-Corrida: 2
-Resultado: Training error 51%
-		   Testing error 44%
-
-Corrida: 3
-Resultado: Training error 45%
-		   Testing error 44%
-
-Corrida: 4
-Resultado: Training error 50%
-		   Testing error 43%
-
-Corrida: 5
-Resultado: Training error 45%
-		   Testing error 45%
+Corrida 5:
+Resultado: Training error 46% 
+		   Testing error 42%
