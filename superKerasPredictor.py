@@ -22,7 +22,7 @@ def getArgs():
     try:
         sector = sys.argv[1]
     except:
-        print("Ingrese el Sector a Producir el Indice:")
+        print("Ingrese el Sector a Obtener el Indice:")
         sector = input()
 
     try:
