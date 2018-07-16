@@ -132,10 +132,10 @@ def getCorrelations(sector, interval, daysAfter):
 	]
 
     # Concatenando el indice con los precios
-    frames = [index, casePrices]
-    indexWithPrices = pd.concat(frames, axis=1)
-    indexWithPrices.columns = [
-        'date', 
+	frames = [index, casePrices]
+	indexWithPrices = pd.concat(frames, axis=1)
+	indexWithPrices.columns = [
+		'date', 
 		'opening_price', 
 		'highest_price', 
 		'lower_price', 
@@ -148,6 +148,6 @@ def getCorrelations(sector, interval, daysAfter):
 	corrTrend = indexWithTrends.drop('date', axis=1).corr()
 
     # # Correlacion del indice con precios
-    corrPrices = indexWithPrices.drop('date', axis=1).corr()
+	corrPrices = indexWithPrices.drop('date', axis=1).corr()
 
 	return indexWithTrends, corrTrend, corrPrices
